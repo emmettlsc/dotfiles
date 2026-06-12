@@ -32,5 +32,9 @@ link "$DOTFILES/bash/bash_profile"   "$HOME/.bash_profile"
 # csh/tcsh
 link "$DOTFILES/csh/cshrc"           "$HOME/.cshrc"
 
+# emacs
+mkdir -p "$HOME/.emacs.d"
+link "$DOTFILES/emacs/init.el"       "$HOME/.emacs.d/init.el"
+
 echo
 echo "done. open a new shell or 'source ~/.zshrc' to apply."

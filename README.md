@@ -20,7 +20,8 @@ cd ~/dotfiles
 ├── shared/aliases.sh     # POSIX aliases sourced by zsh and bash
 ├── zsh/{zshrc,zprofile}
 ├── bash/{bashrc,bash_profile}
-└── csh/cshrc
+├── csh/cshrc
+└── emacs/init.el
 ```
 
 ## Where do aliases go?
@@ -34,6 +35,10 @@ There is no standard `.aliases` file — putting one in `$HOME` and sourcing it 
 | **csh/tcsh** | `~/.cshrc`    | `~/.login` (optional) | `.cshrc` runs for every invocation; there's no `.cprofile` |
 
 This repo factors `ll` and `c` into `shared/aliases.sh` (POSIX sh syntax) and sources it from `.zshrc` and `.bashrc`. csh needs its own copy in `csh/cshrc` because its alias syntax differs (`alias name 'cmd'` — no `=`).
+
+## emacs
+
+`init.el` only changes one thing: brightens the default dark-blue used for `dired-directory` and `font-lock-function-name-face` to a Nord cyan (`#88c0d0`) so folders are readable on a black terminal.
 
 ## tmux
 
