@@ -1,0 +1,18 @@
+# csh/tcsh startup. Runs for every shell invocation (login and non-login).
+# csh has no .cshenv / .cprofile — .cshrc is the single per-user file.
+
+# ----- aliases -----
+# csh syntax: `alias name 'command'` (no equals sign, single quotes).
+alias ll 'ls -al'
+alias c  'clear'
+
+# ----- PATH -----
+if (-d /opt/homebrew/bin) then
+    setenv PATH "/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+endif
+if (-d $HOME/.local/bin) then
+    setenv PATH "$HOME/.local/bin:$PATH"
+endif
+
+# ----- ls colors -----
+setenv LSCOLORS ExGxBxDxCxEgEdxbxgxcxd

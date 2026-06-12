@@ -1,0 +1,15 @@
+# Interactive bash setup.
+
+# ----- shared aliases -----
+[ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
+
+# ----- rbenv -----
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+
+# ----- conda -----
+if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+    . "/opt/anaconda3/etc/profile.d/conda.sh"
+fi
+
+# ----- local bin -----
+export PATH="$HOME/.local/bin:$PATH"
