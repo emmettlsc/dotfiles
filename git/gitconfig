@@ -1,0 +1,57 @@
+# Identity is NOT in this file — put your name/email in ~/.gitconfig.local
+# (gitignored, machine-local). Example:
+#   [user]
+#       name = Your Name
+#       email = you@example.com
+[include]
+    path = ~/.gitconfig.local
+
+[core]
+    editor = emacs
+    excludesfile = ~/.config/git/ignore
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+    default = current
+
+[fetch]
+    prune = true
+
+[rerere]
+    enabled = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[diff]
+    algorithm = histogram
+
+[color]
+    ui = auto
+
+[alias]
+    co = checkout
+    sw = switch
+    br = branch
+    st = status
+    cm = commit -m
+    ca = commit --amend --no-edit
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    lg = log --oneline --graph --decorate --all
+
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+
+[http]
+    maxRequestBuffer = 524288000
+    postBuffer = 524288000

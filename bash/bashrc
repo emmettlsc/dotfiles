@@ -3,6 +3,18 @@
 # ----- shared aliases -----
 [ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
 
+# ----- history -----
+HISTFILE="$HOME/.bash_history"
+HISTSIZE=50000
+HISTFILESIZE=50000
+HISTCONTROL=ignoreboth:erasedups   # ignore dupes + leading-space lines
+shopt -s histappend                 # append, don't overwrite
+PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"  # write incrementally
+
+# ----- fzf -----
+# Install: brew install fzf && $(brew --prefix)/opt/fzf/install
+[ -f "$HOME/.fzf.bash" ] && . "$HOME/.fzf.bash"
+
 # ----- rbenv -----
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 

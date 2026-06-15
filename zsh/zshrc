@@ -9,6 +9,26 @@ plugins=(git)
 # ----- shared aliases -----
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 
+# ----- history -----
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY          # share across sessions
+setopt HIST_IGNORE_ALL_DUPS   # drop dupes
+setopt HIST_IGNORE_SPACE      # leading space → not recorded
+setopt HIST_REDUCE_BLANKS     # trim whitespace
+setopt INC_APPEND_HISTORY     # write as you go
+
+# ----- fzf (Ctrl-R history, Ctrl-T files, Alt-C cd) -----
+# Install: brew install fzf && $(brew --prefix)/opt/fzf/install
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+
+# ----- zsh-autosuggestions -----
+# Install: brew install zsh-autosuggestions
+if [ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
 # ----- rbenv -----
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 

@@ -1,5 +1,20 @@
 ;;; init.el --- minimal personal config -*- lexical-binding: t -*-
 
+;; ---- behavior ----
+(setq inhibit-startup-message t)
+(setq ring-bell-function 'ignore)
+
+;; Redirect backup (~) and auto-save (#) files into ~/.emacs.d/backups
+;; instead of scattering them next to source files.
+(let ((backup-dir (expand-file-name "backups" user-emacs-directory)))
+  (unless (file-directory-p backup-dir)
+    (make-directory backup-dir t))
+  (setq backup-directory-alist `(("." . ,backup-dir)))
+  (setq auto-save-file-name-transforms `((".*" ,backup-dir t))))
+
+;; Line numbers when editing code (off in shells, dired, etc.).
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
 ;; ---- readable colors on a black terminal ----
 ;; The default emacs blue used for directory names (dired) and function
 ;; names (font-lock) is too dark to read on a black background. Override

@@ -21,7 +21,8 @@ cd ~/dotfiles
 ├── zsh/{zshrc,zprofile}
 ├── bash/{bashrc,bash_profile}
 ├── csh/cshrc
-└── emacs/init.el
+├── emacs/init.el
+└── git/gitconfig
 ```
 
 ## Where do aliases go?
@@ -38,10 +39,26 @@ This repo factors `ll` and `c` into `shared/aliases.sh` (POSIX sh syntax) and so
 
 ## emacs
 
-`init.el` only changes one thing: brightens the default dark-blue used for `dired-directory` and `font-lock-function-name-face` to a Nord cyan (`#88c0d0`) so folders are readable on a black terminal.
+- Brightens default dark-blue `dired-directory` / `font-lock-function-name-face` → Nord cyan `#88c0d0` (readable on a black terminal).
+- `inhibit-startup-message`, silent bell.
+- Backup (`~`) and auto-save (`#`) files redirected to `~/.emacs.d/backups/`.
+- Line numbers on in `prog-mode` (code buffers only).
+
+## git
+
+`~/.gitconfig` includes `~/.gitconfig.local` for identity — `install.sh` writes a stub if it doesn't exist; edit it with your name/email. Key settings: `pull.rebase`, `push.autoSetupRemote`, `fetch.prune`, `rerere.enabled`, `merge.conflictstyle=zdiff3`. Aliases: `co sw br st cm ca lg last unstage`.
+
+## optional tools
+
+The shell config is no-op-safe if these aren't installed:
+
+```
+brew install fzf zsh-autosuggestions
+$(brew --prefix)/opt/fzf/install   # writes ~/.fzf.zsh and ~/.fzf.bash
+```
 
 ## tmux
 
-- Prefix + `r` reloads the config (`bind r source-file ~/.tmux.conf`).
-- Prefix + `|` splits horizontally, prefix + `-` splits vertically (each inherits the pane's current path).
-- Emacs-style mode keys, Nord-ish status bar, windows numbered from 1.
+- Prefix + `r` reloads the config.
+- Prefix + `|` / `-` split panes, inheriting the current path.
+- Mouse on, 50k-line scrollback, emacs-style mode keys, Nord-ish status bar, windows numbered from 1.

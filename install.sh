@@ -36,5 +36,17 @@ link "$DOTFILES/csh/cshrc"           "$HOME/.cshrc"
 mkdir -p "$HOME/.emacs.d"
 link "$DOTFILES/emacs/init.el"       "$HOME/.emacs.d/init.el"
 
+# git
+link "$DOTFILES/git/gitconfig"       "$HOME/.gitconfig"
+# Identity lives in ~/.gitconfig.local — create a stub if missing.
+if [ ! -f "$HOME/.gitconfig.local" ]; then
+    cat > "$HOME/.gitconfig.local" <<'EOF'
+[user]
+    name = CHANGE ME
+    email = changeme@example.com
+EOF
+    echo "created $HOME/.gitconfig.local — edit it with your name/email"
+fi
+
 echo
 echo "done. open a new shell or 'source ~/.zshrc' to apply."
