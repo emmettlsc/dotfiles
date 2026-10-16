@@ -40,7 +40,12 @@ This repo factors `ll` and `c` into `shared/aliases.sh` (POSIX sh syntax) and so
 ## emacs
 
 - Brightens default dark-blue `dired-directory` / `font-lock-function-name-face` → Nord cyan `#88c0d0` (readable on a black terminal).
-- `inhibit-startup-message`, silent bell.
+- No startup screen and an empty `*scratch*` (`inhibit-startup-message` +
+  `initial-scratch-message nil`); silent bell.
+- Everything LSP/tree-sitter is wrapped in an `emacs-major-version >= 30`
+  guard. On an older build (RHEL 8 ships 26.1) the modern config would error
+  partway through init and leave a half-configured editor; instead it prints
+  one message and loads the basics.
 - Backup (`~`) and auto-save (`#`) files redirected to `~/.emacs.d/backups/`.
 - Line numbers on in **every** buffer (`global-display-line-numbers-mode`).
 - Indentation is **real tab characters displayed 4 columns wide**

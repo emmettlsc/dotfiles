@@ -1,7 +1,8 @@
 ;;; init.el --- minimal personal config -*- lexical-binding: t -*-
 
 ;; ---- behavior ----
-(setq inhibit-startup-message t)
+(setq inhibit-startup-message t)       ; alias of `inhibit-startup-screen'
+(setq initial-scratch-message nil)     ; *scratch* with no comment header
 (setq ring-bell-function 'ignore)
 
 ;; Redirect backup (~) and auto-save (#) files into ~/.emacs.d/backups
@@ -56,6 +57,17 @@
 ;; same dim blue used for function names in code — brighten both at once.
 (set-face-attribute 'font-lock-function-name-face nil
                     :foreground my/dir-color)
+
+;; ---- everything below needs a modern Emacs ----
+;; treesit, eglot and go-ts-mode arrived in 29; `completion-preview-mode' and
+;; `eglot-events-buffer-config' in 30. On an older build -- RHEL 8 ships
+;; 26.1 -- loading any of it signals an error partway through init and leaves
+;; a half-configured editor, so skip the lot and say why. Not indented: this
+;; is a wrapper, and reindenting 150 lines would bury the real diff.
+(if (< emacs-major-version 30)
+    (message "init.el: Emacs %s predates treesit/eglot; loaded basics only"
+             emacs-version)
+  (progn
 
 ;; ---- Go ----
 ;; Every Emacs-side piece here is built in to Emacs 30 — tree-sitter
@@ -307,6 +319,8 @@ whole-file diff."
           (lambda ()
             (when (executable-find "shellcheck")
               (flymake-mode 1))))
+
+))
 
 ;; provide init
 (provide 'init)
