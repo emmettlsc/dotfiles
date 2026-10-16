@@ -12,8 +12,32 @@
   (setq backup-directory-alist `(("." . ,backup-dir)))
   (setq auto-save-file-name-transforms `((".*" ,backup-dir t))))
 
-;; Line numbers when editing code (off in shells, dired, etc.).
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+;; Line numbers in every buffer, not just code. To claw back the ones that
+;; are noise (shells, dired, help), add a hook setting
+;; `display-line-numbers-mode' to -1 rather than narrowing this back to
+;; `prog-mode-hook'.
+(global-display-line-numbers-mode 1)
+
+;; ---- indentation: real tabs, displayed 4 columns wide ----
+;; Indent with actual TAB characters and render them 4 columns. `tab-width'
+;; and each mode's indent offset must stay equal, or one level of indent stops
+;; being exactly one tab.
+(setq-default indent-tabs-mode t)
+(setq-default tab-width 4)
+(setq c-ts-mode-indent-offset 4
+      sh-basic-offset 4
+      ;; Python indents with spaces (see below), but 4 of them.
+      python-indent-offset 4
+      cmake-ts-mode-indent-offset 4
+      json-ts-mode-indent-offset 4)
+
+;; Two languages opt out, and not as a matter of taste:
+;; YAML forbids tab characters for indentation outright -- a tab there is a
+;; parse error, not a style difference. Python 3 raises TabError on mixed
+;; indentation and its entire toolchain assumes 4 spaces, so hard tabs would
+;; fight every formatter and diff. Both stay on spaces.
+(dolist (hook '(yaml-ts-mode-hook python-ts-mode-hook))
+  (add-hook hook (lambda () (setq indent-tabs-mode nil))))
 
 ;; ---- readable colors on a black terminal ----
 ;; The default emacs blue used for directory names (dired) and function

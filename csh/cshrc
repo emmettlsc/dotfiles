@@ -18,5 +18,13 @@ if (-d $HOME/go/bin) then
     setenv PATH "$HOME/go/bin:$PATH"
 endif
 
+# ----- locally built toolchain -----
+# A source-built emacs/go/clangd prefix, present only on machines that have
+# one (e.g. a box whose system emacs is too old). Guarded, so this is a no-op
+# everywhere else.
+if (-f $HOME/opt/env.csh) then
+    source $HOME/opt/env.csh
+endif
+
 # ----- ls colors -----
 setenv LSCOLORS ExGxBxDxCxEgEdxbxgxcxd

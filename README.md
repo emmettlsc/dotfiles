@@ -42,7 +42,13 @@ This repo factors `ll` and `c` into `shared/aliases.sh` (POSIX sh syntax) and so
 - Brightens default dark-blue `dired-directory` / `font-lock-function-name-face` → Nord cyan `#88c0d0` (readable on a black terminal).
 - `inhibit-startup-message`, silent bell.
 - Backup (`~`) and auto-save (`#`) files redirected to `~/.emacs.d/backups/`.
-- Line numbers on in `prog-mode` (code buffers only).
+- Line numbers on in **every** buffer (`global-display-line-numbers-mode`).
+- Indentation is **real tab characters displayed 4 columns wide**
+  (`indent-tabs-mode` + `tab-width 4`, with each mode's indent offset set to
+  match so one level is exactly one tab). Two exemptions, both forced rather
+  than chosen: YAML forbids tabs for indentation outright (a tab is a parse
+  error), and Python 3 raises `TabError` on mixed indentation while its whole
+  toolchain assumes 4 spaces. Both stay on spaces.
 
 ### Go
 
@@ -126,6 +132,14 @@ $(brew --prefix)/opt/fzf/install   # writes ~/.fzf.zsh and ~/.fzf.bash
 ```
 
 `$HOME/go/bin` is prepended to `PATH` in `zprofile` / `bash_profile` / `cshrc` when it exists — `go install` writes there and nothing else puts it on `PATH`, so `gopls`, `dlv` and `staticcheck` are otherwise invisible to both the shell and Emacs.
+
+## locally built toolchain
+
+On a machine whose system packages are too old (e.g. RHEL 8, where emacs is
+26.1 and this config needs 30), the toolchain gets built into `~/opt` and the
+shell configs source `~/opt/env.{sh,csh}` if present. Both variants exist
+because **tcsh cannot parse POSIX sh syntax** — `setenv` vs `export`. The
+guard means this is a no-op on machines without that prefix.
 
 ## tmux
 
