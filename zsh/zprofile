@@ -7,6 +7,12 @@ fi
 
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 
+# Go: `go install` drops binaries (gopls, dlv, staticcheck, goimports) here,
+# and nothing else puts $GOPATH/bin on PATH.
+if [ -d "$HOME/go/bin" ]; then
+    export PATH="$HOME/go/bin:$PATH"
+fi
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

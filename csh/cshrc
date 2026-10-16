@@ -13,6 +13,10 @@ endif
 if (-d $HOME/.local/bin) then
     setenv PATH "$HOME/.local/bin:$PATH"
 endif
+# Go: `go install` drops gopls, dlv, staticcheck here.
+if (-d $HOME/go/bin) then
+    setenv PATH "$HOME/go/bin:$PATH"
+endif
 
 # ----- ls colors -----
 setenv LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
